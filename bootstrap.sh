@@ -58,6 +58,10 @@ if [[ -d "$DEV_ENV/dotfile" ]]; then
     log "dotfile already exists, pulling latest changes"
     execute git -C "$DEV_ENV/dotfile" pull
 else
-    execute git clone https://github.com/Joey901201/dotfile.git
-    "$DEV_ENV/dotfile"
+    execute git clone https://github.com/Joey901201/dotfile.git "$DEV_ENV/dotfile"
+fi
+
+echo "Do you want to run dotfile install script now? (y/n): " run_dotfile
+if [[ "$run_dotfile" == "y" ]]; then
+    execute "$DEV_ENV/dotfile/install.sh"
 fi
