@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
 dry_run="0"
-dev_env=""
 while [[ $# -gt 0 ]]; do
-    echo "ARG: \"$1\""
     if [[ "$1" == "--dry" ]]; then
         dry_run="1"
-    else
-        dev_env="$1"
     fi
     shift
 done
@@ -29,18 +25,14 @@ execute() {
 }
 
 #check if DEV_ENV was set
-if [[ -n "$dev_env" ]]; then
-    export DEV_ENV="$dev_env"
-else
-    if [[ -n "$DEV_ENV" ]]; then
-        echo "env var DEV_ENV has been set to: $DEV_ENV"
-        read -p "do you want to overwrite DEV_ENV with default path ($HOME/dev_env)? (y/n): " overwrite_env
-        if [[ "$overwrite_env" != "y" ]]; then
-            export DEV_ENV="$HOME/dev_env"
-        fi
-    else
+if [[ -n "$DEV_ENV" ]]; then
+    echo "DEV_ENV has been set to: $DEV_ENV"
+    read -p "Do you want to overwrite DEV_ENV with default path ($HOME/dev_env)? (y/n): " overwrite_env
+    if [[ "$overwrite_env" == "y" ]]; then
         export DEV_ENV="$HOME/dev_env"
     fi
+else
+    export DEV_ENV="$HOME/dev_env"
 fi
 
 log "Updating and upgrading system"
