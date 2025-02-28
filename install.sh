@@ -13,6 +13,8 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+export DRY_RUN="$dry_run"
+
 log() {
     if [[ "$dry_run" == "1" ]]; then
         echo "[DRY_RUN]: $@"
@@ -35,5 +37,10 @@ cd $script_dir
 scripts=$(find ./installs -maxdepth 1 -mindepth 1 -executable -type f)
 
 for script in $scripts; do
+    if echo "$script" | grep -qv "$filter"; then
+        log "filtering $script"
+        continue
+    fi
 
+    execute ./$script
 done

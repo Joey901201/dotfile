@@ -52,3 +52,6 @@ if [[ -d "$DEV_ENV/dotfile" ]]; then
 else
     execute git clone https://github.com/Joey901201/dotfile.git "$DEV_ENV/dotfile"
 fi
+
+log "Updating submodules"
+execute git submodule update --init --remote
