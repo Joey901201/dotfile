@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-script_dir=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+script_dir="$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)"
 filter=""
 dry_run="0"
 
@@ -32,15 +32,15 @@ execute() {
 }
 
 log "$script_dir -- $filter"
-cd $script_dir
+cd "$script_dir"
 
-scripts=$(find ./installs -maxdepth 1 -mindepth 1 -executable -type f)
+scripts="$(find ./installs -maxdepth 1 -mindepth 1 -executable -type f)"
 
-for script in $scripts; do
+for script in "$scripts"; do
     if echo "$script" | grep -qv "$filter"; then
         log "filtering $script"
         continue
     fi
 
-    execute ./$script
+    execute "$script"
 done

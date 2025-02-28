@@ -55,3 +55,4 @@ fi
 
 log "Updating submodules"
 execute git submodule update --init --remote
+execute git -C "$DEV_ENV/dotfile/nvim" checkout main
