@@ -36,7 +36,7 @@ else
         echo "env var DEV_ENV has been set to: $DEV_ENV"
         read -p "do you want to overwrite DEV_ENV with default path ($HOME/dev_env)? (y/n): " overwrite_env
         if [[ "$overwrite_env" != "y" ]]; then
-            echo "Keeping existing DEV_ENV."
+            export DEV_ENV="$HOME/dev_env"
         fi
     else
         export DEV_ENV="$HOME/dev_env"
@@ -59,9 +59,4 @@ if [[ -d "$DEV_ENV/dotfile" ]]; then
     execute git -C "$DEV_ENV/dotfile" pull
 else
     execute git clone https://github.com/Joey901201/dotfile.git "$DEV_ENV/dotfile"
-fi
-
-echo "Do you want to run dotfile install script now? (y/n): " run_dotfile
-if [[ "$run_dotfile" == "y" ]]; then
-    execute "$DEV_ENV/dotfile/install.sh"
 fi
